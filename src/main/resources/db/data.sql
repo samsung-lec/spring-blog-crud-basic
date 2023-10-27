@@ -1,0 +1,2 @@
+insert into user_tb(username, password, email, profile_img, created_at, updated_at) values('ssar', '$2a$10$DDJOwWzVI3VE4jtDgc.OcOQymy1sbksVfA0uJ9tVF.p/WZiP1X3qy', 'ssar@nate.com', '/images/1.jpg', now(), now());
+insert into user_tb(username, password, email, profile_img, created_at, updated_at) values('cos', '$2a$10$DDJOwWzVI3VE4jtDgc.OcOQymy1sbksVfA0uJ9tVF.p/WZiP1X3qy', 'ssar@nate.com', '/images/1.jpg', now(), now());
