@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.springblogriver._core.auth.JwtUtil;
 import shop.mtcoding.springblogriver._core.error.exception.Exception401;
 import shop.mtcoding.springblogriver._core.error.exception.Exception404;
 import shop.mtcoding.springblogriver._core.auth.PasswordUtil;
@@ -32,13 +33,21 @@ public class UserService {
         return new UserResponse.DTO(userPS);
     }
 
-    public UserResponse.DTO 로그인(UserRequest.LoginDTO requestDTO) {
+    public UserResponse.LoginDTO 로그인(UserRequest.LoginDTO requestDTO) {
+        // 1. 유저 인증
         User userPS = userRepository.findByUsername(requestDTO.username()).orElseThrow(
                 ()-> new Exception401("아이디를 찾을 수 없습니다")
         );
 
         if(!PasswordUtil.verify(requestDTO.password(), userPS.getPassword())) throw new Exception401("패스워드가 일치하지 않습니다");
-        return new UserResponse.DTO(userPS);
+
+        // 2. jwt 생성
+        String jwt = JwtUtil.create(userPS);
+
+        // 3. Bearer 추가
+        jwt = "Bearer "+jwt;
+
+        return new UserResponse.LoginDTO(jwt, userPS);
     }
 
     public List<UserResponse.DTO> 회원목록보기() {

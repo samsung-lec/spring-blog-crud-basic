@@ -42,11 +42,13 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO requestDTO) {
-        return ResponseEntity.ok(ApiUtil.success(userService.로그인(requestDTO)));
+        UserResponse.LoginDTO responseDTO = userService.로그인(requestDTO);
+        return ResponseEntity.ok().header("Authorization", responseDTO.jwt()).body(responseDTO);
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<?> userinfo(@PathVariable Integer id, @SessionUser User sessionUser) {
+        System.out.println("sessionUser : id : "+sessionUser.getId());
         if (sessionUser.getId() != id) {
             throw new Exception403("해당 정보에 접근할 권한이 없습니다 : "+id);
         }
