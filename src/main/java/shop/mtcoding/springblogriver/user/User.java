@@ -27,8 +27,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Lob
-    private String imgBase64;
+    private String imgUrl;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -37,12 +36,12 @@ public class User {
     private LocalDateTime updatedAt;
 
     @Builder
-    public User(Integer id, String username, String password, String email, String imgBase64, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String password, String email, String imgUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.imgBase64 = imgBase64;
+        this.imgUrl = imgUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -51,7 +50,7 @@ public class User {
         this.password = password;
     }
 
-    public void updateImgBase64(String imgBase64){
-        this.imgBase64 = imgBase64;
+    public void updateImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }
