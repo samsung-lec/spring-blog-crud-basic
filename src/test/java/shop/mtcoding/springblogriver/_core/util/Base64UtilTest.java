@@ -28,7 +28,7 @@ public class Base64UtilTest {
         System.out.println(mimeType);
     }
 
-    // data:image/jpeg;base64
+    // data:image/jpeg;base64,
     @Test
     public void encode_test() throws IOException {
         Path filePath = Paths.get("./images/1.jpg");
