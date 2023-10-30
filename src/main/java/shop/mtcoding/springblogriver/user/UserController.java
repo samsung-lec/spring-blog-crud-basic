@@ -64,7 +64,7 @@ public class UserController {
         return ResponseEntity.ok(ApiUtil.success(userService.패스워드수정(id, requestDTO)));
     }
 
-    @PutMapping("/user/{id}/imgBase64")
+    @PutMapping("/user/{id}/img")
     public ResponseEntity<?> userPasswordUpdate(@PathVariable Integer id, @RequestBody UserRequest.ImgBase64UpdateDTO requestDTO, @SessionUser User sessionUser) {
         if (sessionUser.getId() != id) {
             throw new Exception403("해당 정보를 수정할 권한이 없습니다 : "+id);

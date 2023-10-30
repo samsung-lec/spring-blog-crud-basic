@@ -67,7 +67,11 @@ public class UserService {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
-        userPS.updatePassword(requestDTO.password());
+
+        String encPassword = PasswordUtil.encode(requestDTO.password());
+
+
+        userPS.updatePassword(encPassword);
         return new UserResponse.DTO(userPS);
     }
 
@@ -76,7 +80,8 @@ public class UserService {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
-        userPS.updatePassword(requestDTO.imgBase64());
+        String imgUrl = MyFileUtil.write(requestDTO.imgBase64());
+        userPS.updateImgUrl(imgUrl);
         return new UserResponse.DTO(userPS);
     }
 }
