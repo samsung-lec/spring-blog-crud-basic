@@ -1,5 +1,6 @@
 package shop.mtcoding.springblogriver.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,13 +30,15 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
