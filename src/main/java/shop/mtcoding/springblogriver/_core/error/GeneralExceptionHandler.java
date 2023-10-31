@@ -1,13 +1,17 @@
 package shop.mtcoding.springblogriver._core.error;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import shop.mtcoding.springblogriver._core.error.exception.*;
 import shop.mtcoding.springblogriver._core.util.ApiUtil;
 
-@ControllerAdvice
+@Slf4j
+@RestControllerAdvice
 public class GeneralExceptionHandler {
 
     @ExceptionHandler(Exception400.class)
@@ -32,12 +36,14 @@ public class GeneralExceptionHandler {
 
     @ExceptionHandler(Exception500.class)
     public ResponseEntity<?> serverError(Exception500 e){
+        log.error(e.getMessage());
         return new ResponseEntity<>(e.body(), e.status());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> unknownServerError(Exception e){
-        ApiUtil.ApiResult<?> apiResult = ApiUtil.error(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        log.error(e.getMessage());
+        ApiUtil.ApiResult<?> apiResult = ApiUtil.error("unknown server error", HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(apiResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

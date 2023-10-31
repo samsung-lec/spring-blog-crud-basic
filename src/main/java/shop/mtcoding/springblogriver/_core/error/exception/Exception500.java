@@ -12,7 +12,7 @@ public class Exception500 extends RuntimeException {
     }
 
     public ApiUtil.ApiResult<?> body(){
-        return ApiUtil.error(getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ApiUtil.error("server error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public HttpStatus status(){

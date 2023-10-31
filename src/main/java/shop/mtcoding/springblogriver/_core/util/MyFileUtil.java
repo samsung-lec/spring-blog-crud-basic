@@ -5,7 +5,6 @@ import shop.mtcoding.springblogriver._core.error.exception.Exception500;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.UUID;
 
 public class MyFileUtil {
@@ -28,7 +27,8 @@ public class MyFileUtil {
             Files.write(imgFilePath, imgBytes);
             return imgFilename;
         } catch (Exception e) {
-            throw new Exception500("파일 업로드 실패 : " + e.getMessage());
+            throw new Exception500("이미지 저장 오류 : " + e.getMessage());
         }
+
     }
 }

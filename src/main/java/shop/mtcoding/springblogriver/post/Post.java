@@ -46,6 +46,11 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
 
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
+
     @Builder
     public Post(Integer id, String title, String content, User user, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;

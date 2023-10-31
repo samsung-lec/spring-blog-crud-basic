@@ -5,10 +5,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.springblogriver._core.auth.JwtUtil;
+import shop.mtcoding.springblogriver._core.auth.PasswordUtil;
 import shop.mtcoding.springblogriver._core.error.exception.Exception401;
 import shop.mtcoding.springblogriver._core.error.exception.Exception404;
-import shop.mtcoding.springblogriver._core.auth.PasswordUtil;
-import shop.mtcoding.springblogriver._core.util.Base64Util;
 import shop.mtcoding.springblogriver._core.util.MyFileUtil;
 
 import java.util.List;
@@ -24,10 +23,8 @@ public class UserService {
     public UserResponse.DTO 회원가입(UserRequest.JoinDTO requestDTO) {
         // 1. 비밀번호 암호화
         String encPassword = PasswordUtil.encode(requestDTO.password());
-
         // 2. base64 -> file 저장
         String imgUrl = MyFileUtil.write(requestDTO.imgBase64());
-
         // 3. file 경로 가져와서 유저정보 + 사진경로 DB 저장
         User userPS = userRepository.save(requestDTO.toEntity(encPassword, imgUrl));
         return new UserResponse.DTO(userPS);
@@ -38,15 +35,11 @@ public class UserService {
         User userPS = userRepository.findByUsername(requestDTO.username()).orElseThrow(
                 ()-> new Exception401("아이디를 찾을 수 없습니다")
         );
-
         if(!PasswordUtil.verify(requestDTO.password(), userPS.getPassword())) throw new Exception401("패스워드가 일치하지 않습니다");
 
-        // 2. jwt 생성
+        // 3. jwt 생성
         String jwt = JwtUtil.create(userPS);
-
-        // 3. Bearer 추가
         jwt = "Bearer "+jwt;
-
         return new UserResponse.LoginDTO(jwt, userPS);
     }
 
@@ -69,8 +62,6 @@ public class UserService {
         );
 
         String encPassword = PasswordUtil.encode(requestDTO.password());
-
-
         userPS.updatePassword(encPassword);
         return new UserResponse.DTO(userPS);
     }
@@ -80,6 +71,7 @@ public class UserService {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
+
         String imgUrl = MyFileUtil.write(requestDTO.imgBase64());
         userPS.updateImgUrl(imgUrl);
         return new UserResponse.DTO(userPS);
