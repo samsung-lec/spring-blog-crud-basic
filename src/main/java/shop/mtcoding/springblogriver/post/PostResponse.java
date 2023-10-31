@@ -2,20 +2,15 @@ package shop.mtcoding.springblogriver.post;
 
 import org.springframework.data.domain.Page;
 import shop.mtcoding.springblogriver.user.User;
+import shop.mtcoding.springblogriver.user.UserResponse;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PostResponse {
-    record DTO(Integer id, String title, String content, String createdAt, UserDTO user) {
-        DTO(Post post) {
-            this(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")), new UserDTO(post.getUser()));
-        }
-
-        record UserDTO(Integer id, String username, String imgUrl) {
-            UserDTO(User user) {
-                this(user.getId(), user.getUsername(), user.getImgUrl());
-            }
+    public record DTO(Integer id, String title, String content, String createdAt, UserResponse.DTO user) {
+        public DTO(Post post) {
+            this(post.getId(), post.getTitle(), post.getContent(), post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")), new UserResponse.DTO(post.getUser()));
         }
     }
 
