@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PostResponse {
     public record DTO(Integer id, String title, String content, String createdAt, String updatedAt,
-                      UserResponse.DTO user) {
+                      UserResponse.DTO user, int bookmarkCount) {
         public DTO(Post post) {
             this(
                     post.getId(),
@@ -19,7 +19,8 @@ public class PostResponse {
                     post.getContent(),
                     post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
                     post.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
-                    new UserResponse.DTO(post.getUser())
+                    new UserResponse.DTO(post.getUser()),
+                    post.getBookmarks().size()
             );
         }
     }

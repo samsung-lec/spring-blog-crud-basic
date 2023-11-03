@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.springblogriver._core.error.exception.Exception403;
 import shop.mtcoding.springblogriver._core.error.exception.Exception404;
 import shop.mtcoding.springblogriver._core.error.exception.Exception500;
+import shop.mtcoding.springblogriver.bookmark.BookmarkRepository;
 import shop.mtcoding.springblogriver.reply.Reply;
 import shop.mtcoding.springblogriver.reply.ReplyRepository;
 import shop.mtcoding.springblogriver.user.User;
@@ -21,6 +22,7 @@ import shop.mtcoding.springblogriver.user.User;
 public class PostService {
     private final PostRepository postRepository;
     private final ReplyRepository replyRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     @Transactional
     public PostResponse.DTO 게시글쓰기(PostRequest.SaveDTO requestDTO, User sessionUser){

@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Query("select p from Post p join fetch p.user u")
+    // 애플리케이션에서 개수 만들기
+    @Query("select p from Post p join fetch p.user u left join fetch p.bookmarks b")
     Page<Post> mFindAll(Pageable pageable);
 
     @Query("select p from Post p join fetch p.user u where p.id = :id")

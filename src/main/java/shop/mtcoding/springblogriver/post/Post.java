@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import shop.mtcoding.springblogriver.bookmark.Bookmark;
 import shop.mtcoding.springblogriver.reply.Reply;
 import shop.mtcoding.springblogriver.user.User;
 
@@ -45,6 +46,9 @@ public class Post {
     // Cascade는 하지 않는다. 조회시에만 사용, 정방향으로만 데이터를 관리
     @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     public void update(String title, String content){
         this.title = title;

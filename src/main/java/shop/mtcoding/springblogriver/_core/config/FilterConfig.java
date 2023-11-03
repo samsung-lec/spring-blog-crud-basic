@@ -29,6 +29,7 @@ public class FilterConfig {
         bean.addUrlPatterns("/user/*");
         bean.addUrlPatterns("/post/*");
         bean.addUrlPatterns("/reply/*");
+        bean.addUrlPatterns("/bookmark/*");
         bean.setOrder(1);
         return bean;
     }
