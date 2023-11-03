@@ -28,8 +28,8 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(ApiUtil.success(postService.게시글상세보기(id)));
+    public ResponseEntity<?> findById(@PathVariable Integer id, @SessionUser User sessionUser) {
+        return ResponseEntity.ok(ApiUtil.success(postService.게시글상세보기(id, sessionUser.getId())));
     }
 
     @PutMapping("/post/{id}")

@@ -36,7 +36,7 @@ public class PostService {
         return new PostResponse.PageDTO(postPG);
     }
 
-    public PostResponse.DetailDTO 게시글상세보기(int id){
+    public PostResponse.DetailDTO 게시글상세보기(int id, int sessionUserId){
         // Post+User 조회
         Post postPS = postRepository.mFindById(id)
                 .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+id));
@@ -45,7 +45,7 @@ public class PostService {
         Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "id"));
         Page<Reply> replyPG = replyRepository.mFindAllByPostId(id, pageable);
 
-        return new PostResponse.DetailDTO(postPS, replyPG);
+        return new PostResponse.DetailDTO(postPS, replyPG, sessionUserId);
     }
 
     @Transactional

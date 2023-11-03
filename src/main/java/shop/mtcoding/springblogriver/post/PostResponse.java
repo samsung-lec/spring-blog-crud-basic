@@ -26,14 +26,17 @@ public class PostResponse {
     }
 
     public record DetailDTO(Integer id, String title, String content, String createdAt, String updatedAt,
+                            int bookmarkCount, boolean isBookmark,
                             UserResponse.DTO user, ReplyResponse.PageDTO replies) {
-        public DetailDTO(Post post, Page<Reply> replyPG) {
+        public DetailDTO(Post post, Page<Reply> replyPG, int sessionUserId) {
             this(
                     post.getId(),
                     post.getTitle(),
                     post.getContent(),
                     post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
                     post.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
+                    post.getBookmarks().size(),
+                    post.getBookmarks().stream().anyMatch(bookmark -> bookmark.getUser().getId() == sessionUserId),
                     new UserResponse.DTO(post.getUser()),
                     new ReplyResponse.PageDTO(replyPG)
             );
