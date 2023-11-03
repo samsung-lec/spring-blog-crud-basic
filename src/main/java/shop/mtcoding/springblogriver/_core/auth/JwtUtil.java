@@ -15,18 +15,25 @@ public class JwtUtil {
         String jwt = JWT.create()
                 .withSubject("metacoding")
                 .withClaim("id", user.getId())
+                .withClaim("username", user.getUsername())
+                .withClaim("imgUrl", user.getImgUrl())
                 .withExpiresAt(Instant.now().plusMillis(1000*60*60*24*7L))
                 .sign(Algorithm.HMAC512("metacoding"));
         return jwt;
     }
 
-    public static int verify(String jwt)
+    public static User verify(String jwt)
             throws SignatureVerificationException, TokenExpiredException {
         jwt = jwt.replace("Bearer ", "");
 
         // JWT를 검증한 후, 검증이 완료되면, header, payload를 base64로 복호화함.
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("metacoding"))
                 .build().verify(jwt);
-        return decodedJWT.getClaim("id").asInt();
+
+        int id = decodedJWT.getClaim("id").asInt();
+        String username = decodedJWT.getClaim("username").asString();
+        String imgUrl = decodedJWT.getClaim("imgUrl").asString();
+
+        return User.builder().id(id).username(username).imgUrl(imgUrl).build();
     }
 }

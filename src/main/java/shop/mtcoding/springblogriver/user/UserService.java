@@ -48,22 +48,21 @@ public class UserService {
         return usersPS.stream().map(UserResponse.DTO::new).toList(); // Java16
     }
 
-    public UserResponse.DTO 회원정보보기(int id) {
+    public UserResponse.DetailDTO 회원정보보기(int id) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
-        return new UserResponse.DTO(userPS);
+        return new UserResponse.DetailDTO(userPS);
     }
 
     @Transactional
-    public UserResponse.DTO 패스워드수정(int id, UserRequest.PasswordUpdateDTO requestDTO) {
+    public void 패스워드수정(int id, UserRequest.PasswordUpdateDTO requestDTO) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
 
         String encPassword = PasswordUtil.encode(requestDTO.password());
         userPS.updatePassword(encPassword);
-        return new UserResponse.DTO(userPS);
     }
 
     @Transactional

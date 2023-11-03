@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 public class JwtAuthorizationFilter implements Filter {
 
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
@@ -30,10 +31,7 @@ public class JwtAuthorizationFilter implements Filter {
         }
 
         try {
-            int userId = JwtUtil.verify(jwt);
-
-            // 컨트롤러에서 꺼내쓰기 쉽게하려고!!
-            User sessionUser = User.builder().id(userId).build();
+            User sessionUser = JwtUtil.verify(jwt);
 
             HttpSession session = request.getSession();
             session.setAttribute("sessionUser", sessionUser);

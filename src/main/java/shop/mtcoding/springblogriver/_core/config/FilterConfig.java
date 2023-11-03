@@ -4,12 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import shop.mtcoding.springblogriver._core.filter.CorsFilter;
 import shop.mtcoding.springblogriver._core.auth.JwtAuthorizationFilter;
+import shop.mtcoding.springblogriver._core.filter.CorsFilter;
 
 @Slf4j
 @Configuration
 public class FilterConfig {
+
 
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {

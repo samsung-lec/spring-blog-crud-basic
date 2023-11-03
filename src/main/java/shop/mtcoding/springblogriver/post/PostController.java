@@ -12,6 +12,11 @@ import shop.mtcoding.springblogriver.user.User;
 public class PostController {
     private final PostService postService;
 
+    @GetMapping("/init/post")
+    public ResponseEntity<?> initPost(@RequestParam(defaultValue = "0") Integer page) {
+        return ResponseEntity.ok(ApiUtil.success(postService.게시글목록보기(page)));
+    }
+
     @PostMapping("/post")
     public ResponseEntity<?> save(@RequestBody PostRequest.SaveDTO requestDTO, @SessionUser User sessionUser) {
         return ResponseEntity.ok(ApiUtil.success(postService.게시글쓰기(requestDTO, sessionUser)));

@@ -1,5 +1,6 @@
 package shop.mtcoding.springblogriver.reply;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,9 +30,11 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 

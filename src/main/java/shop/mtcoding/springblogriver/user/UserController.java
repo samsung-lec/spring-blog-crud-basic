@@ -28,8 +28,8 @@ public class UserController {
         String jwt = request.getHeader("authorization");
         Optional.ofNullable(jwt).orElseThrow(() -> new Exception400("jwt를 전달해주세요"));
         try {
-            int userId = JwtUtil.verify(jwt);
-            return ResponseEntity.ok(ApiUtil.success(userService.회원정보보기(userId)));
+            User user = JwtUtil.verify(jwt);
+            return ResponseEntity.ok(ApiUtil.success(userService.회원정보보기(user.getId())));
         }catch (Exception e){
             throw new Exception401("jwt가 유효하지 않습니다 : "+e.getMessage());
         }
@@ -43,7 +43,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO requestDTO) {
         UserResponse.LoginDTO responseDTO = userService.로그인(requestDTO);
-        return ResponseEntity.ok().header("Authorization", responseDTO.jwt()).body(responseDTO);
+        return ResponseEntity.ok().header("Authorization", responseDTO.jwt()).body(ApiUtil.success(responseDTO));
     }
 
     @GetMapping("/user/{id}")
@@ -61,7 +61,8 @@ public class UserController {
         if (sessionUser.getId() != id) {
             throw new Exception403("해당 정보를 수정할 권한이 없습니다 : "+id);
         }
-        return ResponseEntity.ok(ApiUtil.success(userService.패스워드수정(id, requestDTO)));
+        userService.패스워드수정(id, requestDTO);
+        return ResponseEntity.ok(ApiUtil.success(null));
     }
 
     @PutMapping("/user/{id}/img")
