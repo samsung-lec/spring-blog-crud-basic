@@ -36,27 +36,26 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOrigins("*");
     }
 
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-        registration.interceptors(new StompHandler());
+//    @Override
+//    public void configureClientInboundChannel(ChannelRegistration registration) {
+//        registration.interceptors(new StompHandler());
+//
+//    }
 
-    }
-
-
-    public class StompHandler implements ChannelInterceptor {
-        @Override
-        public Message<?> preSend(Message<?> message, MessageChannel channel) {
-            StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
-            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-                String jwt = accessor.getFirstNativeHeader("Authorization").substring(7);
-                System.out.println("jwt : "+jwt);
-                JwtUtil.verify(jwt);
-            }
-
-            return message;
-        }
-
-    }
+    // 최초 연결시에만 인증하기가 필요없음. Jwt인가 필터 잘 작동함 (플러터에서는 - 테스트 필요)
+//    public class StompHandler implements ChannelInterceptor {
+//        @Override
+//        public Message<?> preSend(Message<?> message, MessageChannel channel) {
+//            StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+//            if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+//                String jwt = accessor.getFirstNativeHeader("Authorization").substring(7);
+//                System.out.println("jwt : "+jwt);
+//                JwtUtil.verify(jwt);
+//            }
+//
+//            return message;
+//        }
+//    }
 
 
 }

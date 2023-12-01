@@ -21,11 +21,8 @@ public class ChatController {
     @MessageMapping("/chat") // (출판 -> 브로커 /pub/chat)
     @SendTo("/sub/chat") // (브로커 -> 구독자 /sub/chat)
     // 클라이언트는 /sub/chat을 구독하면 된다.
-    public Chat sendMessage(@Payload ChatRequest.SaveDTO requestDTO, SimpMessageHeaderAccessor accessor) {
+    public Chat sendMessage(@Payload ChatRequest.SaveDTO requestDTO, @SessionUser User sessionUser) {
 
-        String jwt = accessor.getFirstNativeHeader("Authorization").substring(7);
-        System.out.println("jwt : "+jwt);
-        User sessionUser = JwtUtil.verify(jwt);
 
         Chat chatPS = chatService.send(requestDTO, sessionUser);
 
