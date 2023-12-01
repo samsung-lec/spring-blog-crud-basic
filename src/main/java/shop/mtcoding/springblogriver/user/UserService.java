@@ -38,9 +38,20 @@ public class UserService {
         if(!PasswordUtil.verify(requestDTO.password(), userPS.getPassword())) throw new Exception401("패스워드가 일치하지 않습니다");
 
         // 3. jwt 생성
-        String jwt = JwtUtil.create(userPS);
-        jwt = "Bearer "+jwt;
-        return new UserResponse.LoginDTO(jwt, userPS);
+        String accessToken = JwtUtil.createdAccessToken(userPS);
+        String refreshToken = JwtUtil.createdRefreshToken(userPS);
+        accessToken = "Bearer "+accessToken;
+        refreshToken = "Bearer "+refreshToken;
+
+        // 4. jwt 레디스 저장
+        // 최초 로그인시에 Access와 Refresh 함께 전달
+        // (인가시에 Access만료되면, Refresh 체크 없으면 Refresh필요하다고 응답)
+        // Refresh 있으면, Refresh로 Access토큰 찾기
+        // Access토큰 존재하면, Access토큰 새로 만들고
+        // 레디스에 쌍으로 다시 저장하고
+        // 응답 (Access, Refresh)
+
+        return new UserResponse.LoginDTO(accessToken, refreshToken, userPS);
     }
 
     public List<UserResponse.DTO> 회원목록보기() {

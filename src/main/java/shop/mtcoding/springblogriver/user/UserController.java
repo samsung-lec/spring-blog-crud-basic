@@ -43,7 +43,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO requestDTO) {
         UserResponse.LoginDTO responseDTO = userService.로그인(requestDTO);
-        return ResponseEntity.ok().header("Authorization", responseDTO.jwt()).body(ApiUtil.success(responseDTO));
+        return ResponseEntity.ok()
+                .header("Authorization", responseDTO.accessToken())
+                .header("X-RefreshToken", responseDTO.refreshToken())
+                .body(ApiUtil.success(responseDTO));
     }
 
     @GetMapping("/api/user/{id}")

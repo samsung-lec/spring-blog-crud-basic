@@ -26,9 +26,9 @@ public class UserResponse {
     }
 
     // jwt는 service -> controller 넘어갈 때만 사용
-    record LoginDTO(@JsonIgnore String jwt, Integer id, String username, String imgUrl) {
-        LoginDTO(String jwt, User user) {
-            this(jwt, user.getId(), user.getUsername(), user.getImgUrl());
+    record LoginDTO(@JsonIgnore String accessToken, @JsonIgnore String refreshToken, Integer id, String username, String imgUrl) {
+        LoginDTO(String accessToken, String refreshToken, User user) {
+            this(accessToken, refreshToken, user.getId(), user.getUsername(), user.getImgUrl());
         }
     }
 }

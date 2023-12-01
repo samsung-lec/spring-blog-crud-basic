@@ -11,15 +11,26 @@ import java.time.Instant;
 
 public class JwtUtil {
 
-    public static String create(User user) {
+    public final static Long EXPIRATION_TIME = 1000*60*60*24*2L;
+    public final static Long EXPIRATION_REFRESH_TIME = 1000*60*60*24*14L;
+
+    private static String create(User user, Long expirationTime) {
         String jwt = JWT.create()
                 .withSubject("metacoding")
                 .withClaim("id", user.getId())
                 .withClaim("username", user.getUsername())
                 .withClaim("imgUrl", user.getImgUrl())
-                .withExpiresAt(Instant.now().plusMillis(1000*60*60*24*7L))
+                .withExpiresAt(Instant.now().plusMillis(expirationTime))
                 .sign(Algorithm.HMAC512("metacoding"));
         return jwt;
+    }
+
+    public static String createdAccessToken(User user){
+        return create(user, EXPIRATION_TIME);
+    }
+
+    public static String createdRefreshToken(User user){
+        return create(user, EXPIRATION_REFRESH_TIME);
     }
 
     public static User verify(String jwt)
