@@ -2,31 +2,28 @@ package shop.mtcoding.springblogriver._core.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 public class ApiUtil {
 
     public static <T> ApiResult<T> success(T response) {
-        return new ApiResult<>(true, response, null);
+        return new ApiResult<>(true, response, 200, null);
     }
 
     public static ApiResult<?> error(String message, HttpStatus status) {
-        return new ApiResult<>(false, null, new ApiError(message, status.value()));
+        return new ApiResult<>(false, null, status.value(), message);
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class ApiResult<T> {
-        private final boolean success;
-        private final T response;
-        private final ApiError error;
-    }
-
-    @Getter @Setter @AllArgsConstructor
-    public static class ApiError {
-        private final String message;
-        private final int status;
+        private boolean success;
+        private T response;
+        private int errorStatus;
+        private String errorMessage;
     }
 }
