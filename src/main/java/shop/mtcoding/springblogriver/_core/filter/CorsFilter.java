@@ -17,11 +17,18 @@ public class CorsFilter implements Filter {
 
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, DELETE, OPTIONS");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers",
                 "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization");
-        chain.doFilter(req, res);
+
+        // 웹소켓: OPTIONS 메서드에 대한 응답 헤더 설정
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            System.out.println("여기걸림?");
+            response.setStatus(HttpServletResponse.SC_OK);
+        }else {
+            chain.doFilter(req, res);
+        }
+
     }
 }

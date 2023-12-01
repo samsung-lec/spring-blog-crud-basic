@@ -7,6 +7,7 @@ import shop.mtcoding.springblogriver._core.auth.SessionUser;
 import shop.mtcoding.springblogriver._core.util.ApiUtil;
 import shop.mtcoding.springblogriver.user.User;
 
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
 public class ReplyController {

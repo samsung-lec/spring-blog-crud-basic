@@ -23,7 +23,7 @@ public class ApiUtil {
     public static class ApiResult<T> {
         private boolean success;
         private T response;
-        private int errorStatus;
+        private int status;
         private String errorMessage;
     }
 }

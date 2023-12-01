@@ -21,6 +21,7 @@ public class JwtAuthorizationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
+        System.out.println("JwtAuthorizationFilter 필터 작동");
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 

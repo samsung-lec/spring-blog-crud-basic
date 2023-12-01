@@ -11,7 +11,6 @@ import shop.mtcoding.springblogriver._core.filter.CorsFilter;
 @Configuration
 public class FilterConfig {
 
-
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {
         log.debug("corsFilter scan");
@@ -26,10 +25,7 @@ public class FilterConfig {
         log.debug("JwtAuthorizationFilter scan");
         FilterRegistrationBean<JwtAuthorizationFilter> bean =
                 new FilterRegistrationBean<>(new JwtAuthorizationFilter());
-        bean.addUrlPatterns("/user/*");
-        bean.addUrlPatterns("/post/*");
-        bean.addUrlPatterns("/reply/*");
-        bean.addUrlPatterns("/bookmark/*");
+        bean.addUrlPatterns("/api/*");
         bean.setOrder(1);
         return bean;
     }

@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok().header("Authorization", responseDTO.jwt()).body(ApiUtil.success(responseDTO));
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/api/user/{id}")
     public ResponseEntity<?> userinfo(@PathVariable Integer id, @SessionUser User sessionUser) {
         System.out.println("sessionUser : id : "+sessionUser.getId());
         if (sessionUser.getId() != id) {
@@ -56,7 +56,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/user/{id}/password")
+    @PutMapping("/api/user/{id}/password")
     public ResponseEntity<?> userPasswordUpdate(@PathVariable Integer id, @RequestBody UserRequest.PasswordUpdateDTO requestDTO, @SessionUser User sessionUser) {
         if (sessionUser.getId() != id) {
             throw new Exception403("해당 정보를 수정할 권한이 없습니다 : "+id);
@@ -65,7 +65,7 @@ public class UserController {
         return ResponseEntity.ok(ApiUtil.success(null));
     }
 
-    @PutMapping("/user/{id}/img")
+    @PutMapping("/api/user/{id}/img")
     public ResponseEntity<?> userPasswordUpdate(@PathVariable Integer id, @RequestBody UserRequest.ImgBase64UpdateDTO requestDTO, @SessionUser User sessionUser) {
         if (sessionUser.getId() != id) {
             throw new Exception403("해당 정보를 수정할 권한이 없습니다 : "+id);
