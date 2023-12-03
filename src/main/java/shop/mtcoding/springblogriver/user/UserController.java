@@ -22,6 +22,16 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/init/download")
+    public ResponseEntity<?> initDownload() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(ApiUtil.success(null));
+    }
+
     @GetMapping("/init/user")
     public ResponseEntity<?> initUser() {
         return ResponseEntity.ok(ApiUtil.success(userService.회원목록보기()));
