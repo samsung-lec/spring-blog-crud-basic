@@ -44,10 +44,10 @@ public class Post {
     private User user;
 
     // Cascade는 하지 않는다. 조회시에만 사용, 정방향으로만 데이터를 관리
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Bookmark> bookmarks = new ArrayList<>();
 
     public void update(String title, String content){

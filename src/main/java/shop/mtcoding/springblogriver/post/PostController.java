@@ -19,11 +19,13 @@ public class PostController {
 
     @PostMapping("/api/post")
     public ResponseEntity<?> save(@RequestBody PostRequest.SaveDTO requestDTO, @SessionUser User sessionUser) {
+
         return ResponseEntity.ok(ApiUtil.success(postService.게시글쓰기(requestDTO, sessionUser)));
     }
 
     @GetMapping("/api/post")
     public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer page) {
+        System.out.println("페이징 요청옴 : "+page);
         return ResponseEntity.ok(ApiUtil.success(postService.게시글목록보기(page)));
     }
 
