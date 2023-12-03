@@ -1,5 +1,6 @@
 package shop.mtcoding.springblogriver.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,10 +30,12 @@ public class User {
 
     private String imgUrl;
 
+    @JsonIgnore // 채팅때문에 임시로
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @JsonIgnore// 채팅때문에 임시로
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;

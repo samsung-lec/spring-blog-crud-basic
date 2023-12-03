@@ -1,5 +1,6 @@
 package shop.mtcoding.springblogriver.chat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Chat {
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
+    @JsonIgnore // 채팅때문에 임시로
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createAt;

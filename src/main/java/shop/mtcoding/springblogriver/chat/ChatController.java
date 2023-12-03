@@ -21,10 +21,10 @@ public class ChatController {
     @MessageMapping("/chat") // (출판 -> 브로커 /pub/chat)
     @SendTo("/sub/chat") // (브로커 -> 구독자 /sub/chat)
     // 클라이언트는 /sub/chat을 구독하면 된다.
-    public Chat sendMessage(@Payload ChatRequest.SaveDTO requestDTO, @SessionUser User sessionUser) {
+    public Chat sendMessage(@Payload ChatRequest.SaveDTO requestDTO/*, @SessionUser User user*/) {
 
 
-        Chat chatPS = chatService.send(requestDTO, sessionUser);
+        Chat chatPS = chatService.send(requestDTO, User.builder().id(1).username("ssar").build());
 
 
         // TIP : 특정 유저에게 메시지 보내는법 (특정 유저에 PK 넣으면 됨)
