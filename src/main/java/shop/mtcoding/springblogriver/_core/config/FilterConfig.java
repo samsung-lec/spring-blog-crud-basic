@@ -11,6 +11,7 @@ import shop.mtcoding.springblogriver._core.filter.CorsFilter;
 @Configuration
 public class FilterConfig {
 
+
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilter() {
         log.debug("corsFilter scan");

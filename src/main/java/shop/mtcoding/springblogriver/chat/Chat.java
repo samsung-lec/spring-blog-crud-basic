@@ -18,6 +18,7 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String message;
 
     @ManyToOne(fetch = FetchType.LAZY)

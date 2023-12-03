@@ -31,15 +31,15 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-    @JsonIgnore
+    @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @JsonIgnore
+    @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @JsonIgnore
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

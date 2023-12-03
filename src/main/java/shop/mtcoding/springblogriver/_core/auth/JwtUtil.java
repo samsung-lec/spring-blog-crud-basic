@@ -2,6 +2,7 @@ package shop.mtcoding.springblogriver._core.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -11,6 +12,8 @@ import java.time.Instant;
 
 public class JwtUtil {
 
+    //public final static Long EXPIRATION_TIME = 1000L;
+    //public final static Long EXPIRATION_REFRESH_TIME = 1000L;
     public final static Long EXPIRATION_TIME = 1000*60*60*24*2L;
     public final static Long EXPIRATION_REFRESH_TIME = 1000*60*60*24*14L;
 
@@ -34,7 +37,7 @@ public class JwtUtil {
     }
 
     public static User verify(String jwt)
-            throws SignatureVerificationException, TokenExpiredException {
+            throws SignatureVerificationException, TokenExpiredException, JWTDecodeException {
         jwt = jwt.replace("Bearer ", "");
 
         // JWT를 검증한 후, 검증이 완료되면, header, payload를 base64로 복호화함.

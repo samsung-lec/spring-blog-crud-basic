@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  mariadb:
+    build: ./mysql
+    restart: always
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+
+  redis:
+    build: ./redis
+    restart: always
+    container_name: redis-container
+    ports:
+      - "6379:6379"

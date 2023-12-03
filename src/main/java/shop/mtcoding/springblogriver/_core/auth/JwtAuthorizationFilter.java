@@ -8,16 +8,20 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import shop.mtcoding.springblogriver._core.error.exception.Exception401;
 import shop.mtcoding.springblogriver.user.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
+@RequiredArgsConstructor
 public class JwtAuthorizationFilter implements Filter {
 
-
+    // API 요청마다 동작
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
@@ -27,7 +31,7 @@ public class JwtAuthorizationFilter implements Filter {
 
         String jwt = request.getHeader("Authorization");
         if (jwt == null || jwt.isEmpty()) {
-            onError(response, "토큰이 없습니다");
+            onError(response, JwtEnum.ACCESS_TOKEN_NOT_FOUND);
             return;
         }
 
@@ -39,20 +43,19 @@ public class JwtAuthorizationFilter implements Filter {
 
             chain.doFilter(request, response);
         } catch (SignatureVerificationException | JWTDecodeException e1) {
-            onError(response, "토큰 검증 실패");
+            onError(response, JwtEnum.ACCESS_TOKEN_INVALID);
         } catch (TokenExpiredException e2){
-            onError(response, "토큰 시간 만료");
+            onError(response, JwtEnum.ACCESS_TOKEN_TIMEOUT);
         }
     }
 
     // ExceptionHandler를 호출할 수 없다. 왜? Filter니까!! DS전에 작동하니까!!
-    private void onError(HttpServletResponse response, String msg) {
-        Exception401 e401 = new Exception401(msg);
+    private void onError(HttpServletResponse response, JwtEnum jwtEnum) {
+        Exception401 e401 = new Exception401(jwtEnum.name());
 
         try {
             String body = new ObjectMapper().writeValueAsString(e401.body());
             response.setStatus(e401.status().value());
-            //response.setHeader("Content-Type", "application/json; charset=utf-8");
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             PrintWriter out = response.getWriter();
             out.println(body);

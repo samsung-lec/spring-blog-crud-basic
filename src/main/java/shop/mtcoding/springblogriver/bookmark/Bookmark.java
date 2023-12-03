@@ -1,6 +1,5 @@
 package shop.mtcoding.springblogriver.bookmark;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,19 +20,19 @@ public class Bookmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonIgnore
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JsonIgnore
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    @JsonIgnore
+    @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @JsonIgnore
+    @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 

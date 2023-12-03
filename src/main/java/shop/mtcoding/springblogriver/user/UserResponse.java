@@ -31,4 +31,10 @@ public class UserResponse {
             this(accessToken, refreshToken, user.getId(), user.getUsername(), user.getImgUrl());
         }
     }
+
+    record AutoLoginDTO(Integer id, String username, String imgUrl) {
+        AutoLoginDTO(User user) {
+            this(user.getId(), user.getUsername(), user.getImgUrl());
+        }
+    }
 }

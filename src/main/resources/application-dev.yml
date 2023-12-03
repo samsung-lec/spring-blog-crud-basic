@@ -33,6 +33,11 @@ spring:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
 
+  data:
+    redis:
+      port: 6379
+      host: localhost
+
 
 logging:
   level:

@@ -1,9 +1,13 @@
 package shop.mtcoding.springblogriver.user;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.springblogriver._core.auth.JwtEnum;
 import shop.mtcoding.springblogriver._core.auth.JwtUtil;
 import shop.mtcoding.springblogriver._core.auth.SessionUser;
 import shop.mtcoding.springblogriver._core.error.exception.Exception400;
@@ -23,30 +27,45 @@ public class UserController {
         return ResponseEntity.ok(ApiUtil.success(userService.회원목록보기()));
     }
 
-    @GetMapping("/jwt/verify")
-    public ResponseEntity<?> jwtVerify(HttpServletRequest request) {
-        String jwt = request.getHeader("authorization");
-        Optional.ofNullable(jwt).orElseThrow(() -> new Exception400("jwt를 전달해주세요"));
-        try {
-            User user = JwtUtil.verify(jwt);
-            return ResponseEntity.ok(ApiUtil.success(userService.회원정보보기(user.getId())));
-        }catch (Exception e){
-            throw new Exception401("jwt가 유효하지 않습니다 : "+e.getMessage());
-        }
+    /**
+     * 클라이언트가 JWT가 존재하면 Authorization에 JWT를 담아서 POST요청
+     * JWT 검증이 완료되면, 사용자 정보 응답
+     * 클라이언트는 사용자 정보로 세션 만들고, 자동 로그인 처리
+     *
+     * JWT 검증 실패 (JWT_NOT_FOUND, JWT_INVALID, JWT_TIMEOUT)
+     */
+    @PostMapping("/auto/login")
+    public ResponseEntity<?> autoLogin(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        UserResponse.AutoLoginDTO responseDTO = userService.자동로그인(accessToken);
+        return ResponseEntity.ok(ApiUtil.success(responseDTO));
     }
 
-    @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO requestDTO) {
-        return ResponseEntity.ok(ApiUtil.success(userService.회원가입(requestDTO)));
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO requestDTO) {
         UserResponse.LoginDTO responseDTO = userService.로그인(requestDTO);
         return ResponseEntity.ok()
                 .header("Authorization", responseDTO.accessToken())
-                .header("X-RefreshToken", responseDTO.refreshToken())
+                .header("X-Refresh-Token", responseDTO.refreshToken())
                 .body(ApiUtil.success(responseDTO));
+    }
+
+    // access와 refresh를 함께 전송해야 한다.
+    @PostMapping("/refresh/login")
+    public ResponseEntity<?> refreshLogin(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        String refreshToken = request.getHeader("X-Refresh-Token");
+        UserResponse.LoginDTO responseDTO = userService.리플래시로그인(accessToken, refreshToken);
+        return ResponseEntity.ok()
+                .header("Authorization", responseDTO.accessToken())
+                .header("X-Refresh-Token", responseDTO.refreshToken())
+                .body(ApiUtil.success(responseDTO));
+    }
+
+    @PostMapping("/join")
+    public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO requestDTO) {
+        return ResponseEntity.ok(ApiUtil.success(userService.회원가입(requestDTO)));
     }
 
     @GetMapping("/api/user/{id}")
