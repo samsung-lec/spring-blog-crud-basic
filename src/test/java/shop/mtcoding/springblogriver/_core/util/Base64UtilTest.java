@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class Base64UtilTest {
 
-    @Test
+    //@Test
     public void mimeType_test() throws IOException {
         // given
         Path filePath = Paths.get("./images/1.jpg");

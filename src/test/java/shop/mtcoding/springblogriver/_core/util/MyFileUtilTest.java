@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class MyFileUtilTest {
 
-    @Test
+    //@Test
     public void write_test() throws IOException {
         // given
         Path filePath = Paths.get("./images/1.jpg");

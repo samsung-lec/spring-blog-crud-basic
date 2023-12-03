@@ -53,30 +53,30 @@ jar {
 
 // ========== REST Docs Begin ==========
 
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
-test {
-    outputs.dir snippetsDir
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
-}
-
-bootJar {
-    dependsOn asciidoctor
-    // build/asciidoc/html5/에 html파일을 src/main/resources/static/doc 복사하려면
-    copy {
-        from "build/asciidoc/html5"
-        into "src/main/resources/static/docs"
-    }
-}
+//asciidoctor.doFirst {
+//    delete file('src/main/resources/static/docs')
+//}
+//
+//ext {
+//    snippetsDir = file('build/generated-snippets')
+//}
+//
+//test {
+//    outputs.dir snippetsDir
+//}
+//
+//asciidoctor {
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}
+//
+//bootJar {
+//    dependsOn asciidoctor
+//    // build/asciidoc/html5/에 html파일을 src/main/resources/static/doc 복사하려면
+//    copy {
+//        from "build/asciidoc/html5"
+//        into "src/main/resources/static/docs"
+//    }
+//}
 
 // ========== REST Docs End ==========
