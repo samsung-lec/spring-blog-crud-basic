@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  mariadb:
+  mysql:
     build: ./mysql
     restart: always
     container_name: mysql-container

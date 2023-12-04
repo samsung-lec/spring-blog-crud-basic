@@ -1,3 +1,5 @@
+use blogdb;
+
 create table user_tb (
     id int auto_increment primary key,
     username varchar(20) unique,
