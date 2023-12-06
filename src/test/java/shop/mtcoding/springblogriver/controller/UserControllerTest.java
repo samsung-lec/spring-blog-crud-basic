@@ -65,10 +65,14 @@ public class UserControllerTest extends MyWithRestDoc {
 
     @Test
     public void join_test() throws Exception {
+        String fakeBase64Image = "data:image/jpg;base64," +
+                RandomStringUtils.randomAlphanumeric(1000);
+
         UserRequest.JoinDTO joinDTO = new UserRequest.JoinDTO();
         joinDTO.setUsername("hello");
         joinDTO.setPassword("1234");
         joinDTO.setEmail("hello@nate.com");
+        joinDTO.setImgBase64(fakeBase64Image);
 
         String requestBody = om.writeValueAsString(joinDTO);
         System.out.println(requestBody);
@@ -85,7 +89,7 @@ public class UserControllerTest extends MyWithRestDoc {
         resultActions.andExpect(jsonPath("$.success").value("true"));
         resultActions.andExpect(jsonPath("$.response.id").value(4));
         resultActions.andExpect(jsonPath("$.response.username").value("hello"));
-        resultActions.andExpect(jsonPath("$.response.imgUrl").value("/images/1.jpg"));
+        resultActions.andExpect(jsonPath("$.response.imgUrl").value(Matchers.endsWith(".jpg")));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
         resultActions.andDo(MockMvcResultHandlers.print());
