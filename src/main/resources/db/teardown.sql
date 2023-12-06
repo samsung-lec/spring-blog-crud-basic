@@ -32,9 +32,9 @@ insert into post_tb(title, content, user_id, created_at, updated_at) values('tit
 insert into post_tb(title, content, user_id, created_at, updated_at) values('title 22', 'content 22', 2, now(), now());
 insert into post_tb(title, content, user_id, created_at, updated_at) values('title 23', 'content 23', 2, now(), now());
 
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 1, 'comment 1',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 1, 'comment 2',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 2, 'comment 3',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 2, 'comment 4',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 3, 'comment 5',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(2, 1, 'comment 6',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 1, 'comment 1',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 1, 'comment 2',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 2, 'comment 3',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 2, 'comment 4',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 3, 'comment 5',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(2, 1, 'comment 6',now(), now());

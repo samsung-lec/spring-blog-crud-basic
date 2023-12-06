@@ -64,7 +64,7 @@ public class PostControllerTest {
     @Test
     public void init_post_test() throws Exception {
         ResultActions resultActions = mvc.perform(
-                get("/init/post")
+                get("/init/post").param("page", "0")
         );
 
         // console
@@ -92,9 +92,9 @@ public class PostControllerTest {
     }
 
     @Test
-    public void find_all() throws Exception {
+    public void find_all_test() throws Exception {
         ResultActions resultActions = mvc.perform(
-                get("/api/post").header("Authorization", accessToken)
+                get("/api/post").param("page", "0").header("Authorization", accessToken)
         );
 
         // console
@@ -156,8 +156,8 @@ public class PostControllerTest {
     }
 
     @Test
-    public void find_by_id() throws Exception {
-        int id = 23;
+    public void find_by_id_test() throws Exception {
+        int id = 1;
         ResultActions resultActions = mvc.perform(
                 get("/api/post/"+id).header("Authorization", accessToken)
         );
@@ -168,22 +168,22 @@ public class PostControllerTest {
 
         // verify
         resultActions.andExpect(jsonPath("$.success").value("true"));
-        resultActions.andExpect(jsonPath("$.response.id").value(23));
-        resultActions.andExpect(jsonPath("$.response.title").value("title 23"));
-        resultActions.andExpect(jsonPath("$.response.content").value("content 23"));
+        resultActions.andExpect(jsonPath("$.response.id").value(1));
+        resultActions.andExpect(jsonPath("$.response.title").value("title 1"));
+        resultActions.andExpect(jsonPath("$.response.content").value("content 1"));
         resultActions.andExpect(jsonPath("$.response.createdAt").exists());
         resultActions.andExpect(jsonPath("$.response.updatedAt").exists());
         resultActions.andExpect(jsonPath("$.response.bookmarkCount").value(0));
         resultActions.andExpect(jsonPath("$.response.isBookmark").value(false));
-        resultActions.andExpect(jsonPath("$.response.user.id").value(2));
-        resultActions.andExpect(jsonPath("$.response.user.username").value("cos"));
+        resultActions.andExpect(jsonPath("$.response.user.id").value(1));
+        resultActions.andExpect(jsonPath("$.response.user.username").value("ssar"));
         resultActions.andExpect(jsonPath("$.response.user.imgUrl").value("/images/1.jpg"));
-        resultActions.andExpect(jsonPath("$.response.reply.isFirst").value(true));
-        resultActions.andExpect(jsonPath("$.response.reply.isLast").value(true));
-        resultActions.andExpect(jsonPath("$.response.reply.pageNumber").value(0));
-        resultActions.andExpect(jsonPath("$.response.reply.size").value(3));
-        resultActions.andExpect(jsonPath("$.response.reply.totalPage").value(0));
-        resultActions.andExpect(jsonPath("$.response.reply.replies").isEmpty());
+        resultActions.andExpect(jsonPath("$.response.replies[0].id").value(5));
+        resultActions.andExpect(jsonPath("$.response.replies[0].comment").value("comment 5"));
+        resultActions.andExpect(jsonPath("$.response.replies[0].createdAt").exists());
+        resultActions.andExpect(jsonPath("$.response.replies[0].replyUser.id").value(3));
+        resultActions.andExpect(jsonPath("$.response.replies[0].replyUser.username").value("love"));
+        resultActions.andExpect(jsonPath("$.response.replies[0].replyUser.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
     }

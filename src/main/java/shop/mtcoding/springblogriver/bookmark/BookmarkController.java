@@ -16,7 +16,6 @@ public class BookmarkController {
 
     @PostMapping("/bookmark")
     public ResponseEntity<?> bookmark(@RequestBody BookmarkRequest.SaveDTO requestDTO, @SessionUser User sessionUser) {
-
         return ResponseEntity.ok(ApiUtil.success(bookmarkService.북마크(requestDTO, sessionUser)));
     }
 

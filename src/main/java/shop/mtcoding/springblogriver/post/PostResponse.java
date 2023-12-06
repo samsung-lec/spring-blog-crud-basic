@@ -27,8 +27,8 @@ public class PostResponse {
 
     public record DetailDTO(Integer id, String title, String content, String createdAt, String updatedAt,
                             int bookmarkCount, boolean isBookmark,
-                            UserResponse.DTO user, ReplyResponse.PageDTO reply) {
-        public DetailDTO(Post post, Page<Reply> replyPG, int sessionUserId) {
+                            UserResponse.DTO user, List<ReplyResponse.DTO> replies) {
+        public DetailDTO(Post post, List<Reply> replies, int sessionUserId) {
             this(
                     post.getId(),
                     post.getTitle(),
@@ -38,7 +38,7 @@ public class PostResponse {
                     post.getBookmarks().size(),
                     post.getBookmarks().stream().anyMatch(bookmark -> bookmark.getUser().getId() == sessionUserId),
                     new UserResponse.DTO(post.getUser()),
-                    new ReplyResponse.PageDTO(replyPG)
+                    replies.stream().map(ReplyResponse.DTO::new).toList()
             );
         }
 

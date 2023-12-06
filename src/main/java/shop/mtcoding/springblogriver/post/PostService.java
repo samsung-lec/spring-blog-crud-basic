@@ -1,7 +1,6 @@
 package shop.mtcoding.springblogriver.post;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.springblogriver._core.error.exception.Exception403;
 import shop.mtcoding.springblogriver._core.error.exception.Exception404;
-import shop.mtcoding.springblogriver._core.error.exception.Exception500;
-import shop.mtcoding.springblogriver.bookmark.BookmarkRepository;
 import shop.mtcoding.springblogriver.reply.Reply;
 import shop.mtcoding.springblogriver.reply.ReplyRepository;
 import shop.mtcoding.springblogriver.user.User;
+
+import java.util.List;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -22,7 +21,6 @@ import shop.mtcoding.springblogriver.user.User;
 public class PostService {
     private final PostRepository postRepository;
     private final ReplyRepository replyRepository;
-    private final BookmarkRepository bookmarkRepository;
 
     @Transactional
     public PostResponse.DTO 게시글쓰기(PostRequest.SaveDTO requestDTO, User sessionUser){
@@ -42,10 +40,9 @@ public class PostService {
                 .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+id));
 
         // Reply List 조회 (Paging 때문에 추가 조회)
-        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "id"));
-        Page<Reply> replyPG = replyRepository.mFindAllByPostId(id, pageable);
+        List<Reply> repliesPS = replyRepository.mFindAllByPostId(id);
 
-        return new PostResponse.DetailDTO(postPS, replyPG, sessionUserId);
+        return new PostResponse.DetailDTO(postPS, repliesPS, sessionUserId);
     }
 
     @Transactional
