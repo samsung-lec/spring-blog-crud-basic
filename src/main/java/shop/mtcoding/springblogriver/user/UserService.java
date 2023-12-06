@@ -31,21 +31,28 @@ public class UserService {
     @Transactional
     public UserResponse.DTO 회원가입(UserRequest.JoinDTO requestDTO) {
         // 1. 비밀번호 암호화
-        String encPassword = PasswordUtil.encode(requestDTO.password());
+        String encPassword = PasswordUtil.encode(requestDTO.getPassword());
         // 2. base64 -> file 저장
-        String imgUrl = MyFileUtil.write(requestDTO.imgBase64());
+        String imgUrl = null;
+        try{
+            imgUrl = MyFileUtil.write(requestDTO.getImgBase64());
+        }catch (Exception e){
+            imgUrl = "/images/1.jpg";
+        }
         // 3. file 경로 가져와서 유저정보 + 사진경로 DB 저장
         User userPS = userRepository.save(requestDTO.toEntity(encPassword, imgUrl));
         return new UserResponse.DTO(userPS);
+
+
     }
 
     // 엑세스토큰, 리플래시토큰을 돌려줘야 한다.
     public UserResponse.LoginDTO 로그인(UserRequest.LoginDTO requestDTO) {
         // 1. 유저 인증
-        User userPS = userRepository.findByUsername(requestDTO.username()).orElseThrow(
+        User userPS = userRepository.findByUsername(requestDTO.getUsername()).orElseThrow(
                 ()-> new Exception401("유저네임을 찾을 수 없습니다")
         );
-        if(!PasswordUtil.verify(requestDTO.password(), userPS.getPassword())) throw new Exception401("패스워드가 일치하지 않습니다");
+        if(!PasswordUtil.verify(requestDTO.getPassword(), userPS.getPassword())) throw new Exception401("패스워드가 일치하지 않습니다");
 
         // 3. jwt 생성
         String accessToken = JwtUtil.createdAccessToken(userPS);

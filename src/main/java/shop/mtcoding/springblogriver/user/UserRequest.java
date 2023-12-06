@@ -1,12 +1,17 @@
 package shop.mtcoding.springblogriver.user;
 
+import lombok.Data;
+
 public class UserRequest {
-    record JoinDTO(
-            String username,
-            String password,
-            String email,
-            String imgBase64) {
-        User toEntity(String encPassword, String imgUrl){
+
+    @Data
+    public static class JoinDTO {
+        private String username;
+        private String password;
+        private String email;
+        private String imgBase64;
+
+        User toEntity(String encPassword, String imgUrl) {
             return User.builder()
                     .username(username)
                     .password(encPassword)
@@ -16,7 +21,12 @@ public class UserRequest {
         }
     }
 
-    record LoginDTO(String username, String password) {}
-    record PasswordUpdateDTO(String password) {}
-    record ImgBase64UpdateDTO(String imgBase64) {}
+    @Data
+    public static class LoginDTO {
+        private String username;
+        private String password;
+    }
+
+    public record PasswordUpdateDTO(String password) {}
+    public record ImgBase64UpdateDTO(String imgBase64) {}
 }
