@@ -48,40 +48,41 @@ jar {
 }
 
 /******* Start Spring Rest Docs *******/
-ext {
-    snippetsDir = file("build/generated-snippets")
-}
-
-test {
-    systemProperty 'file.encoding', 'UTF-8'
-    useJUnitPlatform()
-    outputs.dir snippetsDir
-}
-
-asciidoctor.doFirst {
-    delete file("src/main/resources/static/docs")
-}
-
-asciidoctor {
-    inputs.dir snippetsDir
-    configurations 'asciidoctorExt'
-    dependsOn test
-}
-
-bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
-    }
-}
-
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
-    from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
-}
-
-build {
-    dependsOn copyDocument
-}
+//ext {
+//    snippetsDir = file("build/generated-snippets")
+//}
+//
+//test {
+//    systemProperty 'file.encoding', 'UTF-8'
+//    useJUnitPlatform()
+//    outputs.dir snippetsDir
+//}
+//
+//asciidoctor.doFirst {
+//    delete file("src/main/resources/static/docs")
+//}
+//
+//asciidoctor {
+//    inputs.dir snippetsDir
+//    configurations 'asciidoctorExt'
+//    dependsOn test
+//}
+//
+//bootJar {
+//    dependsOn asciidoctor
+//    from("${asciidoctor.outputDir}/html5") {
+//        into 'static/docs'
+//    }
+//}
+//
+//
+//task copyDocument(type: Copy) {
+//    dependsOn asciidoctor
+//    from file("build/docs/asciidoc")
+//    into file("src/main/resources/static/docs")
+//}
+//
+//build {
+//    dependsOn copyDocument
+//}
 /******* End Spring Rest Docs *******/
