@@ -43,42 +43,45 @@ dependencies {
     testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
 }
 
-tasks.named('test') {
-    systemProperty 'file.encoding', 'UTF-8'
-    useJUnitPlatform()
-}
-
 jar {
     enabled = false
 }
 
-// ========== REST Docs Begin ==========
-
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
+/******* Start Spring Rest Docs *******/
 ext {
-    snippetsDir = file('build/generated-snippets')
+    snippetsDir = file("$buildDir/generated-snippets")
 }
 
 test {
+    systemProperty 'file.encoding', 'UTF-8'
+    useJUnitPlatform()
     outputs.dir snippetsDir
 }
 
+asciidoctor.doFirst {
+    delete file("src/main/resources/static/docs")
+}
+
 asciidoctor {
-    configurations 'asciidoctorExt'
     inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
     dependsOn test
 }
 
 bootJar {
     dependsOn asciidoctor
-    // build/asciidoc/html5/에 html파일을 src/main/resources/static/doc 복사하려면
-    copy {
-        from "build/asciidoc/html5"
-        into "src/main/resources/static/docs"
+    from("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
     }
 }
 
-// ========== REST Docs End ==========
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("$buildDir/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}
+/******* End Spring Rest Docs *******/
