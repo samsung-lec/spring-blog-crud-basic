@@ -49,6 +49,7 @@ create table chat_tb (
     constraint fk_chat_sender_id foreign key (sender_id) references user_tb (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 insert into user_tb(username, password, email, img_url, created_at, updated_at) values('ssar', '$2a$10$DDJOwWzVI3VE4jtDgc.OcOQymy1sbksVfA0uJ9tVF.p/WZiP1X3qy', 'ssar@nate.com', '/images/1.jpg', now(), now());
 insert into user_tb(username, password, email, img_url, created_at, updated_at) values('cos', '$2a$10$DDJOwWzVI3VE4jtDgc.OcOQymy1sbksVfA0uJ9tVF.p/WZiP1X3qy', 'cos@nate.com', '/images/1.jpg',now(), now());
 insert into user_tb(username, password, email, img_url, created_at, updated_at) values('love', '$2a$10$DDJOwWzVI3VE4jtDgc.OcOQymy1sbksVfA0uJ9tVF.p/WZiP1X3qy', 'love@nate.com', '/images/1.jpg',now(), now());
@@ -75,13 +76,15 @@ insert into post_tb(title, content, user_id, created_at, updated_at) values('tit
 insert into post_tb(title, content, user_id, created_at, updated_at) values('title 20', 'content 20', 2, now(), now());
 insert into post_tb(title, content, user_id, created_at, updated_at) values('title 21', 'content 21', 2, now(), now());
 insert into post_tb(title, content, user_id, created_at, updated_at) values('title 22', 'content 22', 2, now(), now());
-insert into post_tb(title, content, user_id, created_at, updated_at) values('title 23', 'content 23', 2, now(), now());
+insert into post_tb(title, content, user_id, created_at, updated_at) values('title 23', 'content 23', 2, now(), now());;
 
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 1, 'comment 1',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 1, 'comment 2',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 2, 'comment 3',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 2, 'comment 4',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(1, 3, 'comment 5',now(), now());
-insert into reply_tb(post_id,user_id,comment, created_at, updated_at) values(2, 1, 'comment 6',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 1, 'comment 1',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 1, 'comment 2',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 2, 'comment 3',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 2, 'comment 4',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 3, 'comment 5',now(), now());
+insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(2, 1, 'comment 6',now(), now());
+
+insert into bookmark_tb(user_id, post_id, created_at, updated_at) values(1, 1, now(), now());
 
 FLUSH PRIVILEGES;

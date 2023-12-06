@@ -13,8 +13,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import shop.mtcoding.springblogriver._core.auth.JwtUtil;
+import shop.mtcoding.springblogriver._core.util.MyWithRestDoc;
 import shop.mtcoding.springblogriver.bookmark.BookmarkRequest;
 import shop.mtcoding.springblogriver.reply.ReplyRequest;
 import shop.mtcoding.springblogriver.user.User;
@@ -29,10 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class BookmarkControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
+public class BookmarkControllerTest extends MyWithRestDoc {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -86,6 +85,8 @@ public class BookmarkControllerTest {
         resultActions.andExpect(jsonPath("$.response.createdAt").exists());
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -105,5 +106,7 @@ public class BookmarkControllerTest {
         resultActions.andExpect(jsonPath("$.response").isEmpty());
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 }

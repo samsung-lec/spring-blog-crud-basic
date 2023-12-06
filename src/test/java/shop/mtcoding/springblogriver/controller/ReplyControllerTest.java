@@ -13,8 +13,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import shop.mtcoding.springblogriver._core.auth.JwtUtil;
+import shop.mtcoding.springblogriver._core.util.MyWithRestDoc;
 import shop.mtcoding.springblogriver.post.PostRequest;
 import shop.mtcoding.springblogriver.reply.ReplyRequest;
 import shop.mtcoding.springblogriver.user.User;
@@ -29,10 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ReplyControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
+public class ReplyControllerTest extends MyWithRestDoc {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -89,6 +88,8 @@ public class ReplyControllerTest {
         resultActions.andExpect(jsonPath("$.response.replyUser.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -108,6 +109,8 @@ public class ReplyControllerTest {
         resultActions.andExpect(jsonPath("$.response").isEmpty());
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -137,6 +140,8 @@ public class ReplyControllerTest {
         resultActions.andExpect(jsonPath("$.response.replies[0].replyUser.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
 }

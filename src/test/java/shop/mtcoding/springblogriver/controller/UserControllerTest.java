@@ -14,9 +14,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 import shop.mtcoding.springblogriver._core.auth.JwtUtil;
+import shop.mtcoding.springblogriver._core.util.MyWithRestDoc;
 import shop.mtcoding.springblogriver.user.User;
 import shop.mtcoding.springblogriver.user.UserRequest;
 
@@ -31,10 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
+public class UserControllerTest extends MyWithRestDoc {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -89,6 +88,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -120,6 +121,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     //  /api/user/{id}/password
@@ -145,6 +148,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response").isEmpty());
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -173,6 +178,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value(Matchers.endsWith(".jpg")));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -192,6 +199,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value(Matchers.endsWith(".jpg")));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
 
@@ -212,6 +221,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -231,6 +242,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response.imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -250,6 +263,8 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response[0].imgUrl").value("/images/1.jpg"));
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 
     @Test
@@ -267,5 +282,7 @@ public class UserControllerTest {
         resultActions.andExpect(jsonPath("$.response").isEmpty());
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.errorMessage").isEmpty());
+        resultActions.andDo(MockMvcResultHandlers.print());
+        resultActions.andDo(document);
     }
 }

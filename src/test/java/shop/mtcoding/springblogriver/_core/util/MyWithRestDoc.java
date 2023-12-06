@@ -1,11 +1,7 @@
 package shop.mtcoding.springblogriver._core.util;
 
-package shop.mtcoding.docapp;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
@@ -21,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 
 @ExtendWith({ SpringExtension.class, RestDocumentationExtension.class })
 public class MyWithRestDoc {
-    protected MockMvc mockMvc;
+    protected MockMvc mvc;
     protected RestDocumentationResultHandler document;
 
     @BeforeEach
@@ -31,7 +27,7 @@ public class MyWithRestDoc {
                 Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                 Preprocessors.preprocessResponse(Preprocessors.prettyPrint()));
 
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
                 .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
                 .alwaysDo(document)
