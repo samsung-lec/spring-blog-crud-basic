@@ -76,7 +76,7 @@ public class UserService {
             User user = JwtUtil.verify(requestRefreshToken);
 
             // 2. 전송한 requestAccessToken이 레디스에 저장되었는지 확인한다.
-            String savedRefreshToken = redisTemplate.opsForValue().getAndDelete(requestAccessToken);
+            String savedRefreshToken = redisTemplate.opsForValue().get(requestAccessToken);
 
             System.out.println("requestAccessToken : "+requestAccessToken);
             System.out.println("requestRefreshToken : "+requestRefreshToken);
@@ -96,7 +96,14 @@ public class UserService {
             String newRefreshToken = JwtUtil.createdRefreshToken(user);
             newAccessToken = "Bearer "+newAccessToken;
             newRefreshToken = "Bearer "+newRefreshToken;
+
+            System.out.println("newAccessToken :"+newAccessToken);
+            System.out.println("newRefreshToken :"+newRefreshToken);
+
             redisTemplate.opsForValue().set(newAccessToken, newRefreshToken);
+
+            String refreshTokenGet = redisTemplate.opsForValue().get(newAccessToken);
+            System.out.println("refreshTokenGet : "+refreshTokenGet);
 
             return new UserResponse.LoginDTO(newAccessToken, newRefreshToken, user);
         }catch (SignatureVerificationException | JWTDecodeException e1) {

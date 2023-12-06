@@ -217,7 +217,6 @@ public class UserControllerTest {
 
     @Test
     public void refresh_login_test() throws Exception {
-
         ResultActions resultActions = mvc.perform(
                 post("/refresh/login").header("Authorization", accessToken).header("X-Refresh-Token", refreshToken)
         );
