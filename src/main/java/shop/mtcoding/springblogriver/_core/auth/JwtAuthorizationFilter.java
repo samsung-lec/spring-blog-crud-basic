@@ -31,22 +31,23 @@ public class JwtAuthorizationFilter implements Filter {
 
         String jwt = request.getHeader("Authorization");
         if (jwt == null || jwt.isEmpty()) {
-            onError(response, JwtEnum.ACCESS_TOKEN_NOT_FOUND);
-            return;
-        }
-
-        try {
-            User sessionUser = JwtUtil.verify(jwt);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("sessionUser", sessionUser);
-
             chain.doFilter(request, response);
-        } catch (SignatureVerificationException | JWTDecodeException e1) {
-            onError(response, JwtEnum.ACCESS_TOKEN_INVALID);
-        } catch (TokenExpiredException e2){
-            onError(response, JwtEnum.ACCESS_TOKEN_TIMEOUT);
+        }else{
+            try {
+                User sessionUser = JwtUtil.verify(jwt);
+
+                HttpSession session = request.getSession();
+                session.setAttribute("sessionUser", sessionUser);
+
+                chain.doFilter(request, response);
+            } catch (SignatureVerificationException | JWTDecodeException e1) {
+                onError(response, JwtEnum.ACCESS_TOKEN_INVALID);
+            } catch (TokenExpiredException e2){
+                onError(response, JwtEnum.ACCESS_TOKEN_TIMEOUT);
+            }
         }
+
+
     }
 
     // ExceptionHandler를 호출할 수 없다. 왜? Filter니까!! DS전에 작동하니까!!

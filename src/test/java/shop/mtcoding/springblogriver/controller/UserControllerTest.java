@@ -36,11 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest extends MyWithRestDoc {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    protected RedisTemplate<String, String> redisTemplate;
 
-    private ObjectMapper om = new ObjectMapper();
-    private String accessToken;
-    private String refreshToken;
+    protected ObjectMapper om = new ObjectMapper();
+    protected String accessToken;
+    protected String refreshToken;
 
     @BeforeEach
     public void setUp(){

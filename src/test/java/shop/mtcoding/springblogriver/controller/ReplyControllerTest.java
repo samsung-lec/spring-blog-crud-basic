@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ReplyControllerTest extends MyWithRestDoc {
+public class ReplyControllerTest extends MyWithRestDoc{
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
