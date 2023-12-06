@@ -26,8 +26,8 @@ public class ReplyService {
     // 응답시에 sessionUser 영속화 되서 나오는지 확인해보기
     @Transactional
     public ReplyResponse.DTO 댓글쓰기(ReplyRequest.SaveDTO requestDTO, User sessionUser) {
-        Post postPS = postRepository.findById(requestDTO.postId())
-                .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+requestDTO.postId()));
+        Post postPS = postRepository.findById(requestDTO.getPostId())
+                .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+requestDTO.getPostId()));
         Reply replyPS = replyRepository.save(requestDTO.toEntity(sessionUser, postPS));
         return new ReplyResponse.DTO(replyPS);
     }

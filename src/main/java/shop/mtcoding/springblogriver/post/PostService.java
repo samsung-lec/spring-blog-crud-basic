@@ -55,7 +55,7 @@ public class PostService {
 
         if(postPS.getUser().getId() != sessionUserId) throw new Exception403("게시글을 수정할 권한이 없습니다");
 
-        postPS.update(requestDTO.title(), requestDTO.content());
+        postPS.update(requestDTO.getTitle(), requestDTO.getContent());
 
         return new PostResponse.DTO(postPS);
     }

@@ -1,11 +1,16 @@
 package shop.mtcoding.springblogriver.reply;
 
+import lombok.Data;
 import shop.mtcoding.springblogriver.post.Post;
 import shop.mtcoding.springblogriver.user.User;
 
 public class ReplyRequest {
 
-    record SaveDTO(String comment, int postId) {
+    @Data
+    public static class SaveDTO{
+        private String comment;
+        private int postId;
+
         Reply toEntity(User sessionUser, Post post){
             return Reply.builder()
                     .comment(comment)
@@ -14,4 +19,5 @@ public class ReplyRequest {
                     .build();
         }
     }
+
 }

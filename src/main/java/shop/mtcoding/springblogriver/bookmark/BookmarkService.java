@@ -20,8 +20,8 @@ public class BookmarkService {
     @Transactional
     public BookmarkResponse.DTO 북마크(BookmarkRequest.SaveDTO requestDTO, User sessionUser){
         System.out.println("sessionUser id 1: "+sessionUser.getId());
-        Post postPS = postRepository.findById(requestDTO.postId())
-                .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+requestDTO.postId()));
+        Post postPS = postRepository.findById(requestDTO.getPostId())
+                .orElseThrow(() -> new Exception404("해당 id를 찾을 수 없습니다 : "+requestDTO.getPostId()));
         System.out.println("sessionUser id 2: "+sessionUser.getId());
         Bookmark bookmarkPS = bookmarkRepository.save(requestDTO.toEntity(sessionUser, postPS));
         return new BookmarkResponse.DTO(bookmarkPS);

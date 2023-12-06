@@ -1,10 +1,16 @@
 package shop.mtcoding.springblogriver.post;
 
+import lombok.Data;
 import shop.mtcoding.springblogriver.user.User;
 
 public class PostRequest {
-    record SaveDTO(String title, String content) {
-        Post toEntity(User sessionUser){
+
+    @Data
+    public static class SaveDTO {
+        private String title;
+        private String content;
+
+        Post toEntity(User sessionUser) {
             return Post.builder()
                     .title(title)
                     .content(content)
@@ -13,5 +19,9 @@ public class PostRequest {
         }
     }
 
-    record UpdateDTO(String title, String content) {}
+    @Data
+    public static class UpdateDTO {
+        private String title;
+        private String content;
+    }
 }

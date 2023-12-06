@@ -40,8 +40,8 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @SessionUser User sessionUser) {
+    public ResponseEntity<?> delete(@PathVariable Integer id, @SessionUser User sessionUser) {
         postService.게시글삭제하기(id, sessionUser.getId());
-        return ResponseEntity.ok(ApiUtil.success("ok"));
+        return ResponseEntity.ok(ApiUtil.success(null));
     }
 }

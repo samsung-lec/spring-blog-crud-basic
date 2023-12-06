@@ -27,7 +27,7 @@ public class PostResponse {
 
     public record DetailDTO(Integer id, String title, String content, String createdAt, String updatedAt,
                             int bookmarkCount, boolean isBookmark,
-                            UserResponse.DTO user, ReplyResponse.PageDTO replies) {
+                            UserResponse.DTO user, ReplyResponse.PageDTO reply) {
         public DetailDTO(Post post, Page<Reply> replyPG, int sessionUserId) {
             this(
                     post.getId(),
