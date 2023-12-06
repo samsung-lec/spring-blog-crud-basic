@@ -6,7 +6,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://${datasource.url}:${datasource.port}/blogdb?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://${datasource.url}:3306/blogdb?allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root1234
