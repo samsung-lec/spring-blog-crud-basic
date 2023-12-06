@@ -1,0 +1,158 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+:user: user-controller-test
+:post: post-controller-test
+:reply: reply-controller-test
+:bookmark: bookmark-controller-test
+
+= REST API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 회원
+=== 1. 회원가입
+===== Request Example
+include::{snippets}/{user}/join_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/join_test/http-response.adoc[]
+
+=== 2. 로그인
+===== Request Example
+include::{snippets}/{user}/login_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/login_test/http-response.adoc[]
+
+=== 3. 자동 로그인
+===== Request Example
+include::{snippets}/{user}/auto_login_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/auto_login_test/http-response.adoc[]
+
+=== 4. 리플래시 로그인
+===== Request Example
+include::{snippets}/{user}/refresh_login_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/refresh_login_test/http-response.adoc[]
+
+=== 5. 회원정보
+===== Request Example
+include::{snippets}/{user}/userinfo_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/userinfo_test/http-response.adoc[]
+
+=== 6. 회원패스워드 변경
+===== Request Example
+include::{snippets}/{user}/user_password_update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/user_password_update_test/http-response.adoc[]
+
+=== 7. 회원프로필사진 변경
+===== Request Example
+include::{snippets}/{user}/user_img_update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/user_img_update_test/http-response.adoc[]
+
+=== 8. 회원목록 정보 더미보기
+===== Request Example
+include::{snippets}/{user}/init_user_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/init_user_test/http-response.adoc[]
+
+=== 9. 스플래시 스크린 테스트
+===== Request Example
+include::{snippets}/{user}/init_download_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{user}/init_download_test/http-response.adoc[]
+
+
+== 게시글
+=== 1. 게시글 목록보기
+===== Request Example
+include::{snippets}/{post}/find_all_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/find_all_test/http-response.adoc[]
+
+=== 2. 게시글 상세보기
+===== Request Example
+include::{snippets}/{post}/find_by_id_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/find_by_id_test/http-response.adoc[]
+
+=== 3. 게시글 쓰기
+===== Request Example
+include::{snippets}/{post}/save_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/save_test/http-response.adoc[]
+
+=== 4. 게시글 삭제하기
+===== Request Example
+include::{snippets}/{post}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/delete_test/http-response.adoc[]
+
+=== 5. 게시글 수정하기
+===== Request Example
+include::{snippets}/{post}/update_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/update_test/http-response.adoc[]
+
+=== 6. 게시글 목록 더미보기
+===== Request Example
+include::{snippets}/{post}/init_post_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{post}/init_post_test/http-response.adoc[]
+
+== 댓글
+=== 1. 댓글 쓰기
+===== Request Example
+include::{snippets}/{reply}/save_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{reply}/save_test/http-response.adoc[]
+
+=== 2. 댓글 전체보기
+===== Request Example
+include::{snippets}/{reply}/find_all_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{reply}/find_all_test/http-response.adoc[]
+
+=== 3. 댓글 삭제하기
+===== Request Example
+include::{snippets}/{reply}/delete_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{reply}/delete_test/http-response.adoc[]
+
+== 북마크
+=== 1. 북마크 하기
+===== Request Example
+include::{snippets}/{bookmark}/bookmark_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{bookmark}/bookmark_test/http-response.adoc[]
+
+=== 2. 북마크 취소하기
+===== Request Example
+include::{snippets}/{bookmark}/cancel_test/http-request.adoc[]
+
+===== Response Example
+include::{snippets}/{bookmark}/cancel_test/http-response.adoc[]
