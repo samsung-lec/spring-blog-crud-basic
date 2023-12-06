@@ -6,7 +6,6 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.springblogriver._core.auth.JwtEnum;
@@ -14,7 +13,6 @@ import shop.mtcoding.springblogriver._core.auth.JwtUtil;
 import shop.mtcoding.springblogriver._core.auth.PasswordUtil;
 import shop.mtcoding.springblogriver._core.error.exception.Exception401;
 import shop.mtcoding.springblogriver._core.error.exception.Exception404;
-import shop.mtcoding.springblogriver._core.util.ApiUtil;
 import shop.mtcoding.springblogriver._core.util.MyFileUtil;
 
 import java.util.List;
@@ -103,8 +101,11 @@ public class UserService {
             return new UserResponse.LoginDTO(newAccessToken, newRefreshToken, user);
         }catch (SignatureVerificationException | JWTDecodeException e1) {
             throw new Exception401(JwtEnum.REFRESH_TOKEN_INVALID.name());
-        } catch (TokenExpiredException e2){
+        }catch (TokenExpiredException e2){
             throw new Exception401(JwtEnum.REFRESH_TOKEN_TIMEOUT.name());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception401(e.getMessage());
         }
     }
 
@@ -142,7 +143,7 @@ public class UserService {
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
 
-        String encPassword = PasswordUtil.encode(requestDTO.password());
+        String encPassword = PasswordUtil.encode(requestDTO.getPassword());
         userPS.updatePassword(encPassword);
     }
 
@@ -152,7 +153,7 @@ public class UserService {
                 ()-> new Exception404("id가 존재하지 않습니다 : "+id)
         );
 
-        String imgUrl = MyFileUtil.write(requestDTO.imgBase64());
+        String imgUrl = MyFileUtil.write(requestDTO.getImgBase64());
         userPS.updateImgUrl(imgUrl);
         return new UserResponse.DTO(userPS);
     }

@@ -27,6 +27,13 @@ public class UserRequest {
         private String password;
     }
 
-    public record PasswordUpdateDTO(String password) {}
-    public record ImgBase64UpdateDTO(String imgBase64) {}
+    @Data
+    public static class PasswordUpdateDTO {
+        private String password;
+    }
+
+    @Data
+    public static class ImgBase64UpdateDTO {
+        private String imgBase64;
+    }
 }
