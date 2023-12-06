@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.5'
     id 'io.spring.dependency-management' version '1.1.3'
-    id "org.asciidoctor.convert" version "2.4.0" // REST Docs
+    id "org.asciidoctor.jvm.convert" version "3.3.2" // REST Docs
 }
 
 group = 'shop.mtcoding'
@@ -13,6 +13,7 @@ java {
 }
 
 configurations {
+    asciidoctorExt
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -24,7 +25,6 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis' // 레디스 - 인메모리 DB
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor' // REST Docs
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // REST Docs
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
@@ -67,6 +67,7 @@ test {
 }
 
 asciidoctor {
+    configurations 'asciidoctorExt'
     inputs.dir snippetsDir
     dependsOn test
 }
