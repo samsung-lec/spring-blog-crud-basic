@@ -32,3 +32,5 @@ insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1
 insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 2, 'comment 4',now(), now());
 insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(1, 3, 'comment 5',now(), now());
 insert into reply_tb(post_id, user_id, comment, created_at, updated_at) values(2, 1, 'comment 6',now(), now());
+
+insert into bookmark_tb(user_id, post_id, created_at, updated_at) values(1, 1, now(), now());

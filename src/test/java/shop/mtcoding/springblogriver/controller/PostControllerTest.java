@@ -173,8 +173,8 @@ public class PostControllerTest {
         resultActions.andExpect(jsonPath("$.response.content").value("content 1"));
         resultActions.andExpect(jsonPath("$.response.createdAt").exists());
         resultActions.andExpect(jsonPath("$.response.updatedAt").exists());
-        resultActions.andExpect(jsonPath("$.response.bookmarkCount").value(0));
-        resultActions.andExpect(jsonPath("$.response.isBookmark").value(false));
+        resultActions.andExpect(jsonPath("$.response.bookmarkCount").value(1));
+        resultActions.andExpect(jsonPath("$.response.isBookmark").value(true));
         resultActions.andExpect(jsonPath("$.response.user.id").value(1));
         resultActions.andExpect(jsonPath("$.response.user.username").value("ssar"));
         resultActions.andExpect(jsonPath("$.response.user.imgUrl").value("/images/1.jpg"));
@@ -212,7 +212,7 @@ public class PostControllerTest {
         resultActions.andExpect(jsonPath("$.response.content").value("content 100"));
         resultActions.andExpect(jsonPath("$.response.createdAt").exists());
         resultActions.andExpect(jsonPath("$.response.updatedAt").exists());
-        resultActions.andExpect(jsonPath("$.response.bookmarkCount").value(0));
+        resultActions.andExpect(jsonPath("$.response.bookmarkCount").value(1));
         resultActions.andExpect(jsonPath("$.response.user.id").value(1));
         resultActions.andExpect(jsonPath("$.response.user.username").value("ssar"));
         resultActions.andExpect(jsonPath("$.response.user.imgUrl").value("/images/1.jpg"));

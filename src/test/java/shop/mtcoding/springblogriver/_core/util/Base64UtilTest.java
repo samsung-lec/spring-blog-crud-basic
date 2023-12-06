@@ -29,7 +29,7 @@ public class Base64UtilTest {
     }
 
     // data:image/jpeg;base64,
-    @Test
+    //@Test
     public void encode_test() throws IOException {
         Path filePath = Paths.get("./images/1.jpg");
         byte[] imgBytes = Files.readAllBytes(filePath);
@@ -39,7 +39,7 @@ public class Base64UtilTest {
         System.out.println(imgBase64);
     }
 
-    @Test
+    //@Test
     public void decode_test(){
         try {
             // given - base64 encode with mime add

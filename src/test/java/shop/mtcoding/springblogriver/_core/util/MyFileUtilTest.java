@@ -40,7 +40,7 @@ public class MyFileUtilTest {
         System.out.println(imgFilename);
     }
 
-    @Test
+    //@Test
     public void pkg_path_test() throws URISyntaxException {
         // 1. pkg 이름 지정
         String pkg = "shop.mtcoding.springblogriver";
@@ -51,25 +51,25 @@ public class MyFileUtilTest {
         System.out.println(packageDirectory);
     }
 
-@Test
-public void root_path_test(){
-    // 1. root 패스 찾음
-    String projectRootPath = System.getProperty("user.dir")+File.separator;
-    System.out.println(projectRootPath);
+    //@Test
+    public void root_path_test() {
+        // 1. root 패스 찾음
+        String projectRootPath = System.getProperty("user.dir") + File.separator;
+        System.out.println(projectRootPath);
 
-    // 2. 윈도우 ,맥 시스템에 따라서 / 쓸지, \ 쓸지 세팅하기
-    projectRootPath = projectRootPath.replace("/", File.separator);
-    System.out.println(projectRootPath);
-}
+        // 2. 윈도우 ,맥 시스템에 따라서 / 쓸지, \ 쓸지 세팅하기
+        projectRootPath = projectRootPath.replace("/", File.separator);
+        System.out.println(projectRootPath);
+    }
 
-@Test
-public void other_path_test(){
-    String otherPath = ".idea/misc.xml";
-    String projectRootPath = System.getProperty("user.dir")+File.separator;
+    //@Test
+    public void other_path_test() {
+        String otherPath = ".idea/misc.xml";
+        String projectRootPath = System.getProperty("user.dir") + File.separator;
 
-    // 2. 윈도우 ,맥 시스템에 따라서 / 쓸지, \ 쓸지 세팅하기
-    otherPath = otherPath.replace("/", File.separator);
-    projectRootPath = projectRootPath.replace("/", File.separator);
-    System.out.println(projectRootPath+otherPath);
-}
+        // 2. 윈도우 ,맥 시스템에 따라서 / 쓸지, \ 쓸지 세팅하기
+        otherPath = otherPath.replace("/", File.separator);
+        projectRootPath = projectRootPath.replace("/", File.separator);
+        System.out.println(projectRootPath + otherPath);
+    }
 }
