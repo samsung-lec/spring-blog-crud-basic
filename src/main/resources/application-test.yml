@@ -14,13 +14,6 @@ spring:
   h2:
     console:
       enabled: true
-  sql:
-    init:
-      encoding: utf-8
-      data-locations:
-        - classpath:db/data.sql
-  jpa:
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
     show-sql: true
