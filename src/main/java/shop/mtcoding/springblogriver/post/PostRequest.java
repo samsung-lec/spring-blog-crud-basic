@@ -1,7 +1,6 @@
 package shop.mtcoding.springblogriver.post;
 
 import lombok.Data;
-import shop.mtcoding.springblogriver.user.User;
 
 public class PostRequest {
 
@@ -10,11 +9,10 @@ public class PostRequest {
         private String title;
         private String content;
 
-        Post toEntity(User sessionUser) {
+        Post toEntity() {
             return Post.builder()
                     .title(title)
                     .content(content)
-                    .user(sessionUser)
                     .build();
         }
     }

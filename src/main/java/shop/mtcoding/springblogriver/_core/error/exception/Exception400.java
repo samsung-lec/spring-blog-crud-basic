@@ -13,8 +13,8 @@ public class Exception400 extends RuntimeException {
         super(message);
     }
 
-    public ApiUtil.ApiResult<?> body(){
-        return ApiUtil.error(getMessage(), HttpStatus.BAD_REQUEST);
+    public ApiUtil<?> body(){
+        return new ApiUtil<>(HttpStatus.BAD_REQUEST.value(), getMessage());
     }
 
     public HttpStatus status(){
